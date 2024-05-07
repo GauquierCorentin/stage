@@ -1,0 +1,9 @@
+Conso Rson -> 25% average
+Conso Json -> 14-18%, pic a la fin jusque 30%
+
+Enchainement des task avec sleep -> pas de changements
+
+jq :
+
+rson -> 15-16% (fait apres demarrage, beaucoup de overhead sur les tests avec jsonpath hier !!! ou probleme graphe ??)
+jq -> 12-17%, beaucoup plus de variations

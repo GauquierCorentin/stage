@@ -1,0 +1,35 @@
+#OLD
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    wget \
+    git \
+    build-essential \
+    python3 \
+    python3-pip \
+    linux-headers-generic \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN add-apt-repository main
+RUN add-apt-repository universe
+RUN add-apt-repository restricted
+RUN add-apt-repository multiverse
+
+RUN apt-get update
+
+RUN git clone https://github.com/powerapi-ng/powerapi.git
+
+WORKDIR /powerapi/docs
+
+RUN pip3 install -r requirements.txt
+
+RUN pip3 install sphinx sphinx-autodoc-typehints sphinx_rtd_theme
+
+RUN apt-get install -y libssl-dev libzmq3-dev
+
+RUN sphinx-build -b html source build/html
+
+CMD ["bash"]

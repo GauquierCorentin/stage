@@ -5,7 +5,7 @@
 
 int main() {
     // Open the JSON file
-    std::ifstream file("data.json");
+    std::ifstream file("/home/spirals/Documents/crossref/crossref0.json");
 
     if (!file.is_open()) {
         std::cerr << "Failed to open file." << std::endl;

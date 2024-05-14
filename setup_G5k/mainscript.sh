@@ -1,0 +1,13 @@
+#!/bin/bash
+
+sudo apt update
+
+sudo apt install -y jq
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+source $HOME/.cargo/env
+
+cargo install rq
+
+echo "jq and rq have been installed successfully."

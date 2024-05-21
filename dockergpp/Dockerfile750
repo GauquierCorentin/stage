@@ -1,0 +1,23 @@
+# Use an appropriate base image
+FROM ubuntu:18.04
+
+# Set environment variables for non-interactive installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update the package list and install necessary tools
+RUN apt-get update && \
+    apt-get install -y software-properties-common
+
+# Add the necessary repository for g++ 7.4.0
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
+    apt-get update && \
+    apt-get install -y g++-7
+
+# Set g++-7 as the default g++ compiler
+RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 60
+
+# Verify the installation
+RUN g++ --version
+
+# Specify the entrypoint to keep the container running
+CMD ["/bin/bash"]

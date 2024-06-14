@@ -1,0 +1,305 @@
+diff --git a/makefile b/makefile
+index d24d0be..31961f4 100644
+--- a/makefile
++++ b/makefile
+@@ -3,7 +3,8 @@ EXEC1 = $(DIR)/example1
+ EXEC2 = $(DIR)/example2
+ EXEC3 = $(DIR)/example3
+ EXEC4 = $(DIR)/example4
+-TARGET = $(EXEC1) $(EXEC2) $(EXEC3) $(EXEC4)
++EXEC5 = $(DIR)/search_author
++TARGET = $(EXEC1) $(EXEC2) $(EXEC3) $(EXEC4) $(EXEC5)
+ all: $(TARGET)
+ 
+ CC = g++
+@@ -30,5 +31,10 @@ $(EXEC4): $(SOURCE4)
+ 	mkdir -p $(DIR)
+ 	$(CC) $(CC_FLAGS) -o $(EXEC4) $(SOURCE4) $(POST_FLAGS)
+ 
++SOURCE5 = src/*.cpp example/search_author.cpp
++$(EXEC5): $(SOURCE5)
++	mkdir -p $(DIR)
++	$(CC) $(CC_FLAGS) -o $(EXEC5) $(SOURCE5) $(POST_FLAGS)
++
+ clean:
+ 	-$(RM) $(TARGET)
+diff --git a/src/JSONPathParser.cpp b/src/JSONPathParser.cpp
+index f06880e..8b57f80 100644
+--- a/src/JSONPathParser.cpp
++++ b/src/JSONPathParser.cpp
+@@ -1,4 +1,4 @@
+-#include "./lib/JSONPathParser.h"
++#include "lib/JSONPathParser.h"
+ #include <stdlib.h>
+ #include <limits.h>
+ 
+@@ -94,7 +94,7 @@ void JSONPathParser::updateQueryAutomaton(string query, QueryAutomaton &qa) {
+                         qa.updateStateTransInfo(query_state, false, NONE, OBJECT, NULL, query_state + 1);
+                         // cout<<"("<<query_state<<", false, NONE, OBJECT, NULL, "<<(query_state + 1)<<")"<<endl;
+                     } else if (ch == '[') {
+-                        cout<<"additional ["<<endl;
++                        //cout<<"additional ["<<endl;
+                         lexer_state = 2;
+                         qa.updateStateTransInfo(query_state, false, NONE, ARRAY, NULL, query_state + 1);
+                         // cout<<"("<<query_state<<", false, NONE, ARRAY, NULL, "<<(query_state + 1)<<")"<<endl;
+diff --git a/src/QueryProcessor.cpp b/src/QueryProcessor.cpp
+index c0a769b..96070f0 100644
+--- a/src/QueryProcessor.cpp
++++ b/src/QueryProcessor.cpp
+@@ -1,19 +1,24 @@
+-#include "./lib/QueryProcessor.h"
++// Assuming a more generous maximum size for keys and values
++#define MAX_KEY_SIZE 1024  // Set based on the largest key length in your JSON files
++#define MAX_TEXT_SIZE 524288000 // Set based on the largest value length in your JSON files
++
++
++#include "lib/QueryProcessor.h"
+ #include <immintrin.h>
++
+ #include <emmintrin.h>
+ #include <string.h>
++
+ #include <sys/time.h>
++#include <stdio.h>
+ #include <string.h>
+-#if defined(__MACH__)
+ #include <stdlib.h>
+-#else 
+-#include <malloc.h>
+-#endif
+ #include <stdio.h>
++#include <stdlib.h>
+ #include <string.h>
+ #include <ctype.h>
+ #include <pthread.h>
+-
++#include <malloc.h>
+ #include <sys/time.h>
+ #include <sys/file.h>
+ #include <unistd.h>
+@@ -23,6 +28,7 @@
+ using namespace std;
+ 
+ QueryProcessor::QueryProcessor(string query) {
++    this->qa = QueryAutomaton();
+     JSONPathParser::updateQueryAutomaton(query, this->qa);
+     this->mOutput.clear();
+     this->mNumMatches = 0;
+@@ -55,14 +61,14 @@ void QueryProcessor::init() {
+     colonbit = 0; quotebit = 0; commabit = 0; bracketbit = 0;
+     cur_word = false;
+     top_word = -1;
+-    cur_pos = 0; 
++    cur_pos = 0;
+     this->mOutput.clear();
+ }
+ 
+ QueryProcessor::~QueryProcessor()
+ {
+     if (mText) {
+-        free(mText);
++        delete[] mText;
+         mText = NULL;
+     }
+ }
+@@ -998,10 +1004,15 @@ void QueryProcessor::object(long& pos, bitmap& bm) {
+                 long ed = st + 1;
+                 while (mRecord[ed] != '"') ++ed;
+                 int key_len = ed - st - 1;
++                if (key_len >= MAX_KEY_SIZE) { // Assuming MAX_KEY_SIZE is defined
++                    // Handle error: key length exceeds buffer size
++                    std::cerr << "Error: Key length exceeds buffer size." << std::endl;
++                    return;
++                }
+                 memcpy(mKey, mRecord + st + 1, key_len);
+                 mKey[key_len] = '\0';
+                 next_state = qa.getNextState(mRecord + st + 1, key_len);
+-                while (mRecord[ed] != ':') ++ed; 
++                while (mRecord[ed] != ':') ++ed;
+                 pos = ed + 1;
+                 element_type = getElementType(pos);
+             }
+@@ -1015,6 +1026,11 @@ void QueryProcessor::object(long& pos, bitmap& bm) {
+             long ed = st - 1;
+             while (mRecord[ed] != '"') --ed;
+             int key_len = st - ed - 1;
++            if (key_len >= MAX_KEY_SIZE) { // Assuming MAX_KEY_SIZE is defined
++                // Handle error: key length exceeds buffer size
++                std::cerr << "Error: Key length exceeds buffer size." << std::endl;
++                return;
++            }
+             memcpy(mKey, mRecord + ed + 1, key_len);
+             mKey[key_len] = '\0';
+             next_state = qa.getNextState(mRecord + ed + 1, key_len);
+@@ -1031,24 +1047,27 @@ void QueryProcessor::object(long& pos, bitmap& bm) {
+                     goOverPriAttr(pos, bm);
+                 }
+             }
+-        } else if (qa.isAccept(next_state) == true) { //ACCEPT
++        } else if (qa.isAccept(next_state) == true) { // ACCEPT
+             ++mNumMatches;
+             long start_pos = pos;
+             switch (element_type) {
+-                case OBJECT: {
++                case OBJECT:
+                     goOverObj(pos, bm);
+                     break;
+-                }
+-                case ARRAY: {
++                case ARRAY:
+                     goOverAry(pos, bm);
+                     break;
+-                }
+                 case PRIMITIVE:
+                     goOverPriAttr(pos, bm);
+                     ++pos;
+             }
+             long end_pos = pos;
+             long text_length = end_pos - start_pos + 1;
++            if (text_length >= MAX_TEXT_SIZE) { // Assuming MAX_TEXT_SIZE is defined
++                // Handle error: text length exceeds buffer size
++                std::cerr << "Error: Text length exceeds buffer size." << std::endl;
++                return;
++            }
+             memcpy(mText, mRecord + start_pos, text_length);
+             mText[text_length] = '\0';
+             mOutput.append(mText);
+@@ -1058,7 +1077,7 @@ void QueryProcessor::object(long& pos, bitmap& bm) {
+                 goToObjEnd(pos, bm);
+             }
+             break;
+-        } else {  // in-progress
++        } else { // in-progress
+             qa.pushStack(next_state);
+             switch (attribute_type) {
+                 case OBJECT:
+@@ -1075,6 +1094,7 @@ void QueryProcessor::object(long& pos, bitmap& bm) {
+     }
+ }
+ 
++
+ void QueryProcessor::array(long& pos, bitmap& bm) {
+     int next_state = qa.getNextStateNoKey();
+     qa.pushStack(next_state);
+diff --git a/src/RecordLoader.cpp b/src/RecordLoader.cpp
+index 22de8a7..fc25616 100644
+--- a/src/RecordLoader.cpp
++++ b/src/RecordLoader.cpp
+@@ -1,42 +1,35 @@
+ #include <sys/time.h>
+-#include "./lib/RecordLoader.h"
++#include <sys/stat.h>
++#include <sys/mman.h>
++
++#include "lib/RecordLoader.h"
+ using namespace std;
+ 
+ #define MAX_PAD 64
+ 
+ Record* RecordLoader::loadSingleRecord(char* file_path) {
+-    unsigned long size;
+-    FILE* fp = fopen (file_path,"rb");
+-    if (fp == NULL) {
+-        return NULL;
+-    }
+-    fseek (fp, 0, SEEK_END);
+-    size = ftell(fp);
+-    rewind(fp);
+-    void* p;
+-    if (posix_memalign(&p, 64, (size + MAX_PAD)*sizeof(char)) != 0) {
+-        cout<<"Fail to allocate memory space for input record."<<endl;
++    struct stat sb;
++    int fd = open(file_path, O_RDONLY);
++    if (fd == -1){
++        cout << "Fail to open file" << endl;
+     }
+-    char* record_text = (char*) p;
+-    size_t load_size = fread (record_text, 1, size, fp);
+-    if (load_size == 0) {
+-        cout<<"Fail to load the input record into memory"<<endl;
++    if (fstat(fd, &sb) == -1){
++        cout << "Error when stating file" << endl;
+     }
+-    int remain = 64 - (size % 64);
+-    int counter = 0;
+-    // pad the input data where its size can be divided by 64
+-    while (counter < remain)
+-    {
+-        record_text[size+counter] = 'd';
+-        counter++;
++    long size = sb.st_size + MAX_PAD + 1;
++    char *buffer = (char *)mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
++
++    if (buffer == MAP_FAILED) {
++        cout << "Error in mmap" << endl;
+     }
+-    record_text[size+counter]='\0';
+-    fclose(fp);
++
++    close(fd);
++
+     // only one single record
+     Record* record = new Record();
+-    record->text = record_text;
++    record->text = buffer;
+     record->rec_start_pos = 0;
+-    record->rec_length = strlen(record_text);
++    record->rec_length = size;
+     return record;
+ }
+ 
+diff --git a/src/lib/RecordLoader.h b/src/lib/RecordLoader.h
+index 7806ada..a58bbd5 100644
+--- a/src/lib/RecordLoader.h
++++ b/src/lib/RecordLoader.h
+@@ -1,14 +1,12 @@
+ #ifndef _RECORDLOADER_H
+ #define _RECORDLOADER_H
++
+ #include <stdio.h>
+-#if defined(__MACH__)
+ #include <stdlib.h>
+-#else 
+-#include <malloc.h>
+-#endif
+ #include <string.h>
+ #include <ctype.h>
+ #include <pthread.h>
++#include <malloc.h>
+ #include <sys/time.h>
+ #include <sys/file.h>
+ #include <unistd.h>
+diff --git a/src/lib/Records.h b/src/lib/Records.h
+index 53dfd62..b02d32f 100644
+--- a/src/lib/Records.h
++++ b/src/lib/Records.h
+@@ -1,7 +1,9 @@
+ #ifndef RECORDS_H
+ #define RECORDS_H
+ 
++#include <iostream>
+ #include <stdlib.h>
++#include <sys/mman.h>
+ #include <vector>
+ using namespace std;
+ 
+@@ -29,7 +31,7 @@ struct Record {
+ 
+     ~Record() {
+         if (can_delete_text == true && text != NULL) {
+-            free(text);
++            munmap(text, rec_length);
+             text = NULL;
+             can_delete_text = false;
+         }
+@@ -52,8 +54,8 @@ class RecordSet {
+     Record*& operator[] (long idx) {
+         if (idx >= 0 && idx < num_recs)
+             return recs[idx];
+-        cout << "Array index in RecordSet out of bound."<<endl; 
+-        exit(0); 
++        std::cerr << "Array index in RecordSet out of bound."<<endl; 
++        exit(1); 
+     }
+ 
+     long size() {

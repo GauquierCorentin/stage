@@ -1,0 +1,13 @@
+_id,timestamp,sensor,target,metadata,power
+666ab81cd6965c4e6213416f,2024-06-13 09:12:57.198000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': 'ac9272ee151df0d2f0e4f9aa9721a1c00d807b59', 'ratio': 0.0}",0.0
+666ab81cd6965c4e62134171,2024-06-13 09:12:57.198000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '343e6f2f21070dee8183912b700e52c34ea17ea8', 'ratio': 0.0}",0.0
+666ab81cd6965c4e62134177,2024-06-13 09:12:57.699000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '9a00e25187f37a042a48c7cc109254251aec1845', 'ratio': 0.0}",0.0
+666ab81cd6965c4e62134179,2024-06-13 09:12:57.699000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': '469a6804d2a6b21bcc9a1c198428a29c346b9fbd', 'ratio': 0.0}",0.0
+666ab81dd6965c4e6213417f,2024-06-13 09:12:58.199000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': 'bc1220250ab71a121f359a7440ad3a328064da4d', 'ratio': 0.9972389688603318}",69.22325263457051
+666ab81dd6965c4e62134181,2024-06-13 09:12:58.199000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': 'fc83ae671a1320fcd464c6c9ec43a59a69e692de', 'ratio': 0.0}",0.0
+666ab81dd6965c4e62134185,2024-06-13 09:12:58.700000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '7af2bbf8e1c4b2ac8979302049b0ebcd02200f6e', 'ratio': 0.0}",0.0
+666ab81dd6965c4e62134188,2024-06-13 09:12:58.700000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': '7d23caf67745a62be57999b28f4af7527ed87cda', 'ratio': 0.9985826542690301}",73.71586511843161
+666ab81ed6965c4e6213418f,2024-06-13 09:12:59.200000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '88d0b4e84fcde0b85cee5c57c4b8294baff24842', 'ratio': 0.0}",0.0
+666ab81ed6965c4e62134191,2024-06-13 09:12:59.200000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': '29b8e782697b4a94019b9519fe12603d8c298ead', 'ratio': 0.0}",0.0
+666ab81ed6965c4e62134197,2024-06-13 09:12:59.701000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '8feb66577280df9d1013a74ce684591136b1761a', 'ratio': 0.0}",0.0
+666ab81ed6965c4e62134199,2024-06-13 09:12:59.701000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': 'ac2a7cf9c1124aaf04e549be495efb99fd7341fb', 'ratio': 0.0}",0.0

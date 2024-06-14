@@ -1,0 +1,11 @@
+Check screens for sensor/formula
+
+start a swarm om personal computer, create network with option --driver overlay, add G5k as manager, start service mongo with a port -p
+
+launch formula and sensor
+
+setup cgroups script
+
+dl needed tools 
+
+

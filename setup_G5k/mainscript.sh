@@ -1,13 +1,33 @@
 #!/bin/bash
 
-sudo apt update
+echo "Mise a jour de la liste des paquets..."
+apt update
 
-sudo apt install -y jq
+echo "Installation des dependances necessaires..."
+apt install -y build-essential curl
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Installer Rust via rustup
+echo "Installation de Rust via rustup..."
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
+echo "Ajout de Cargo au PATH..."
 source $HOME/.cargo/env
 
-cargo install rq
+echo "Ajout de Cargo au PATH de maniere persistante..."
+echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> $HOME/.bashrc
 
-echo "jq and rq have been installed successfully."
+# V  rifier l'installation de Rust et Cargo
+echo "Verification de l'installation de Rust et Cargo..."
+rustc --version
+cargo --version
+
+# Installer rq via Cargo
+echo "Installation de rq via Cargo..."
+cargo install rsonpath
+
+# V  rifier l'installation de rq
+echo "Verification de l'installation de rq..."
+rq --version
+
+echo "Installation de rq terminee avec succes."
+

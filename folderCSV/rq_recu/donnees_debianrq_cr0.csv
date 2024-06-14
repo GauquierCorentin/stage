@@ -1,0 +1,27 @@
+_id,timestamp,sensor,target,metadata,power
+665f10fcf3e3a6523a475ab5,2024-06-04 13:04:57.058000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '484e757389e7abd6de6f98937a17f89f2afc8857', 'ratio': 0.0}",0.0
+665f10fcf3e3a6523a475ab8,2024-06-04 13:04:57.058000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': '88159e230119c8a220106d25ab35a7626939effe', 'ratio': 0.0}",0.0
+665f10fcf3e3a6523a475abc,2024-06-04 13:04:57.559000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '60cf97db0f5fd87706939343991a3284c1139a08', 'ratio': 0.0}",0.0
+665f10fcf3e3a6523a475ac0,2024-06-04 13:04:57.559000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': '627d05c0a9e2e23de7738cdba9f7ace4f9adc950', 'ratio': 0.0}",0.0
+665f10fdf3e3a6523a475ac6,2024-06-04 13:04:58.059000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': '2767af5c7daceff74746559967c9e1342228ae50', 'ratio': 0.0}",0.0
+665f10fdf3e3a6523a475ac7,2024-06-04 13:04:58.059000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': 'd654bc7cb3283a0ef074af3197c2d025f77a1199', 'ratio': 0.0}",0.0
+665f10fdf3e3a6523a475acc,2024-06-04 13:04:58.560000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '60cf97db0f5fd87706939343991a3284c1139a08', 'ratio': 0.0}",0.0
+665f10fdf3e3a6523a475ad0,2024-06-04 13:04:58.560000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': '2702a04f6469708eef5d2b4130f883e11d8dafb6', 'ratio': 0.0}",0.0
+665f10fef3e3a6523a475ad4,2024-06-04 13:04:59.061000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': 'bdc2c5188ce88c99040763d6ee0778e5bfa7fc7e', 'ratio': 0.0}",0.0
+665f10fef3e3a6523a475ad8,2024-06-04 13:04:59.061000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': 'c14ad7a7b49a211910028f5110ce6fdcfc6c496c', 'ratio': 0.0}",0.0
+665f10fef3e3a6523a475ade,2024-06-04 13:04:59.562000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': 'd654bc7cb3283a0ef074af3197c2d025f77a1199', 'ratio': 0.0}",0.0
+665f10fef3e3a6523a475adf,2024-06-04 13:04:59.562000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': 'ade69b44180b4febaf62aed011ff3a5742b5da1b', 'ratio': 0.0}",0.0
+665f10fff3e3a6523a475ae5,2024-06-04 13:05:00.062000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': 'da2215343f2786516f6df8b3767018e7ea8e1f37', 'ratio': 0.0}",0.0
+665f10fff3e3a6523a475ae8,2024-06-04 13:05:00.062000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '8bf3daa4e0bf9e618e6b8198f657d11ed984ddc0', 'ratio': 1.0}",22.56097413690314
+665f10fff3e3a6523a475aed,2024-06-04 13:05:00.562000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '31c6fedb5016d8073272c85a4b5766ab7401c46c', 'ratio': 1.0}",70.89881311922741
+665f10fff3e3a6523a475af0,2024-06-04 13:05:00.562000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': 'da2215343f2786516f6df8b3767018e7ea8e1f37', 'ratio': 0.0}",0.0
+665f1100f3e3a6523a475af4,2024-06-04 13:05:01.063000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': 'da2215343f2786516f6df8b3767018e7ea8e1f37', 'ratio': 0.0}",0.0
+665f1100f3e3a6523a475af8,2024-06-04 13:05:01.063000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': 'bbfe6f0b6ded20a37c2697534f7cf77f004f51f6', 'ratio': 1.0}",59.92914932510652
+665f1100f3e3a6523a475afc,2024-06-04 13:05:01.564000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': 'ff96e7376e450280ffb52ae48080f0e8ad0f6df4', 'ratio': 1.0}",66.09840201301711
+665f1100f3e3a6523a475b00,2024-06-04 13:05:01.564000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': 'bf045159bdfb3d07639392c2a77b4e4dc57819bd', 'ratio': 0.0}",0.0
+665f1101f3e3a6523a475b05,2024-06-04 13:05:02.064000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': '2767af5c7daceff74746559967c9e1342228ae50', 'ratio': 0.0}",0.0
+665f1101f3e3a6523a475b08,2024-06-04 13:05:02.064000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '8ebcf258c9478b33d6c95da78ebf51ee2436eefa', 'ratio': 0.0}",0.0
+665f1101f3e3a6523a475b0c,2024-06-04 13:05:02.565000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': 'ade69b44180b4febaf62aed011ff3a5742b5da1b', 'ratio': 0.0}",0.0
+665f1101f3e3a6523a475b10,2024-06-04 13:05:02.565000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '63dec4ddd51a4a28f8af0023fe5b7aee641b7aa1', 'ratio': 0.0}",0.0
+665f1102f3e3a6523a475b15,2024-06-04 13:05:03.066000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '0', 'formula': '60cf97db0f5fd87706939343991a3284c1139a08', 'ratio': 0.0}",0.0
+665f1102f3e3a6523a475b18,2024-06-04 13:05:03.066000,dahu-10.grenoble.grid5000.fr,debianrq,"{'scope': 'cpu', 'socket': '1', 'formula': '70c327b7a1332ea8a3e50740ec3985b6d7e0be89', 'ratio': 0.0}",0.0
